@@ -9,7 +9,7 @@ from tensorflow import keras
 print("TensorFlow version:", tf.__version__)
 
 #create model
-model = tf.keras.Sequential([keras.layers.Dense(units=1, input_shape=[1])])
+model = tf.keras.Sequential([keras.layers.Dense(units=1, input_shape=(1,))])
 
 #compile model
 model.compile(optimizer='sgd', loss='mean_squared_error')
