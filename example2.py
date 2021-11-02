@@ -6,31 +6,44 @@ import tensorflow as tf
 import numpy as np
 from tensorflow import keras
 
-#create model
-model = tf.keras.Sequential([keras.layers.Dense(units=1, input_shape=[1])])
-model.summary()
-#compile model
-model.compile(optimizer='sgd', loss='mean_squared_error')
-
 #function for creating data
 f = lambda x: x * 3 + 1 
 
 #learn data
-xs = np.arange(0.0,10.0,0.1)
+xs = np.arange(0.0,1.0,.001)
 ys = f(xs)
 
 #test data
-x_test = np.array([0.0, 1.0, 2.0, 3.0, 4.0], dtype=float)
+x_test = np.array([0.0, 0.1, 0.2, 0.4, 0.8,1.0], dtype=float)
 y_test = f(x_test) 
+
+#create model
+
+model = tf.keras.Sequential([keras.layers.Dense(units=1, activation='linear',input_shape=(None,1))])
+model.summary()
+#compile model
+#opt='sgd'
+opt = tf.keras.optimizers.SGD(learning_rate=0.2, momentum=0.1)
+#opt = tf.keras.optimizers.RMSprop(learning_rate=0.9, momentum=0.0)
+#opt = tf.keras.optimizers.Adam(learning_rate=0.5)
+model.compile(optimizer=opt, loss='mse',metrics=['mae','mse'])
+
 
 #fit
 print("FIT")
-model.fit(xs, ys, epochs=50,verbose=2)
+model.fit(xs, ys, epochs=10,verbose=2)
+
+weights,bias = model.layers[0].get_weights()
+print(weights,bias)
+
 
 #evaluate after fit
 print("EVALUATE")
-model.evaluate(x_test,  y_test, verbose=2)
+model.evaluate(x_test,  y_test, verbose=1)
+
+weights,bias = model.layers[0].get_weights()
+print(weights,bias)
 
 #predict
 print("PREDICT")
-print(model.predict(np.array(range(10))))
+print(model.predict([10]))
