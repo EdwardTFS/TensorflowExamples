@@ -1,4 +1,5 @@
 #based on https://developers.google.com/codelabs/tensorflow-1-helloworld
+#fitting a linear function
 
 import sys
 print("Python version:",sys.version)
@@ -24,7 +25,7 @@ xs = np.array([-1.0, 0.0, 1.0, 2.0, 3.0, 4.0], dtype=float)
 ys = f(xs)
 
 #test data
-x_test = np.array([0.0, 1.0, 2.0, 3.0, 4.0], dtype=float)
+x_test = np.array([-0.5, 0.5, 1.5, 2.5, 3.5], dtype=float)
 y_test = f(x_test) 
 
 #fit 1
@@ -45,4 +46,4 @@ model.evaluate(x_test,  y_test, verbose=2)
 
 #predict
 print("PREDICT")
-print(model.predict(np.array(range(10))))
+print(model.predict(np.array(range(5))))

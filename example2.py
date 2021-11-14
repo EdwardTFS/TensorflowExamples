@@ -1,6 +1,6 @@
 #based on https://developers.google.com/codelabs/tensorflow-1-helloworld and example 1
 
-#work in progress
+#effectively the same as example1.py
 
 import tensorflow as tf
 import numpy as np
@@ -23,15 +23,15 @@ model = tf.keras.Sequential([keras.layers.Dense(units=1, activation='linear',inp
 model.summary()
 #compile model
 #opt='sgd'
-opt = tf.keras.optimizers.SGD(learning_rate=0.2, momentum=0.1)
-#opt = tf.keras.optimizers.RMSprop(learning_rate=0.9, momentum=0.0)
-#opt = tf.keras.optimizers.Adam(learning_rate=0.5)
+#opt = tf.keras.optimizers.SGD(learning_rate=0.2)
+#opt = tf.keras.optimizers.RMSprop(learning_rate=0.3, momentum=0.0)
+opt = tf.keras.optimizers.Adam(learning_rate=0.2)
 model.compile(optimizer=opt, loss='mse',metrics=['mae','mse'])
 
 
 #fit
 print("FIT")
-model.fit(xs, ys, epochs=10,verbose=2)
+model.fit(xs, ys, epochs=10,verbose=0)
 
 weights,bias = model.layers[0].get_weights()
 print(weights,bias)
@@ -46,4 +46,4 @@ print(weights,bias)
 
 #predict
 print("PREDICT")
-print(model.predict([10]))
+print(model.predict([3]),f(3))
